@@ -32,9 +32,18 @@ jobs:
         Copy-Item -Verbose -Path "build\Release\cain-ncnn-vulkan.exe" -Destination "cain-ncnn-vulkan-artifact"
         Copy-Item -Verbose -Recurse -Path "models\*" -Destination "cain-ncnn-vulkan-artifact"
     - uses: actions/upload-artifact@v2
-    - uses: actions/create-release@v1
       with:
         name: cain-ncnn-vulkan-artifact-windows-2019
         path: cain-ncnn-vulkan-artifact
+    - uses: actions/create-release@v1
+      env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
         tag_name: ${{ github.ref }}
         release_name: Release ${{ github.ref }}
+        body: |
+          Changes in this Release
+          - First Change
+          - Second Change
+        draft: false
+        prerelease: false
